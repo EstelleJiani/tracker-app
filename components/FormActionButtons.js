@@ -1,11 +1,16 @@
 import { View, Button } from 'react-native'
-import React from 'react'
 
-function FormActionButtons() {
+function FormActionButtons({ onCancel, onSave }) {
   return (
     <View>
-      <Button title='Cancel'/>
-      <Button title='Save'/>
+      <Button
+        title='Cancel'
+        onPress={onCancel}
+      />
+      <Button
+        title='Save'
+        onPress={onSave}
+      />
     </View>
   );
 }

@@ -38,11 +38,19 @@ function Field({
     switch (type) {
       case 'text':
         return (
-          <TextInput/>
+          <TextInput
+            value={value}
+            onChangeText={onChange}
+          />
         );
       case 'textarea':
         return (
-          <TextInput multiline={true} style={{height: 100, textAlignVertical: 'top',}} />
+          <TextInput
+            value={value}
+            onChangeText={onChange}
+            multiline={true}
+            style={{height: 100, textAlignVertical: 'top',}}
+          />
         );
       case 'dropdown':
         return (

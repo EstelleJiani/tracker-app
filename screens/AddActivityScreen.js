@@ -14,7 +14,28 @@ const activityOptions = [
   {label: 'Hiking', value: 'Hiking'},
 ];
 
-function AddActivityScreen() {
+function AddActivityScreen({ navigation }) {
+  const { addActivity } = useContext(DataContext);
+  const [description, setDescription] = useState('');
+  const [duration, setDuration] = useState('');
+  const [date, setDate] = useState(null);
+
+  const handleCancel = () => {
+    navigation.goBack();
+  }
+
+  const handleSave = () => {
+    const newActivity = {
+      id: Date.now().toString(),
+      description,                          // Activity
+      value: duration.toString() + " min",  // Duration
+      date,
+      showIcon: duration > 60 ? true : false,
+    };
+    addActivity(newActivity);
+    navigation.goBack();
+  };
+
   return (
     <View>
       <Field
@@ -22,18 +43,24 @@ function AddActivityScreen() {
         required={true}
         type='dropdown'
         options={activityOptions}
+        value={description}
+        onChange={setDescription}
       />
       <Field
         label="Duration (min)"
         required={true}
         type='text'
+        value={duration}
+        onChange={setDuration}
       />
       <Field
         label="Date"
         required={true}
         type='date'
+        value={date}
+        onChange={setDate}
       />
-      <FormActionButtons/>
+      <FormActionButtons onCancel={handleCancel} onSave={handleSave} />
     </View>
   )
 }
