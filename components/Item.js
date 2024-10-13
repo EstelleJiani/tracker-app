@@ -1,7 +1,8 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import React from 'react'
 
+// The Item component that makes up the list of items in the ActivityScreen and DietScreen.
 function Item ({
   description,
   date,
@@ -9,7 +10,7 @@ function Item ({
   showIcon
 }) {
   return (
-    <View style ={{ImageBackground: 'cornflowerblue'}}>
+    <View style ={{backgroundColor: 'cornflowerblue'}}>
       <Text>{description}</Text>
       {showIcon && (
         <Ionicons name="warnig" size={24} color="#FFD700" />
