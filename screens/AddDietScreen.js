@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import ItemsList from '../components/ItemsList'
 
-export default function AddDietScreen() {
+function AddDietScreen() {
   return (
     <View>
-      <Text>AddDietScreen</Text>
+      <ItemsList/>
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+export default AddDietScreen;
