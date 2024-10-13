@@ -24,7 +24,7 @@ function ActivitiesStackScreen() {
         name="Activities"
         component={ActivitiesScreen}
         options={({navigation}) => ({
-          headerTitle: 'Activities',
+          title: 'Activities',
           headerRight: () => (
             <Button
               title="Add"
@@ -52,7 +52,7 @@ function  DietStackScreen() {
         name="Diet"
         component={DietScreen}
         options={({navigation}) => ({
-          headerTitle: 'Diet',
+          title: 'Diet',
           headerRight: () => (
             <Button
               title="Add"
@@ -64,7 +64,9 @@ function  DietStackScreen() {
       <DietStack.Screen
         name="AddDiet"
         component={AddDietScreen}
-        options={()=>({title: 'Add A Diet Entry',})}
+        options={()=>({
+          title: 'Add A Diet Entry',
+        })}
       />
     </DietStack.Navigator>
   );
@@ -77,7 +79,8 @@ function SettingsStackScreen() {
       <SettingStack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={() => ({title: 'Settings',
+        options={() => ({
+          title: 'Settings',
         })}
       />
     </SettingStack.Navigator>
@@ -92,6 +95,7 @@ function NavigationTab() {
         name="ActivitiesStack"
         component={ActivitiesStackScreen}
         options={{
+          title: 'Activities',
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="directions-run" color={color} size={size} />
           ),
@@ -100,6 +104,7 @@ function NavigationTab() {
         name="DietStack"
         component={DietStackScreen}
         options={{
+          title: 'Diet',
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="fastfood" color={color} size={size} />
           ),
@@ -109,6 +114,7 @@ function NavigationTab() {
         name="Settings"
         component={SettingsStackScreen} 
         options={{
+          title: 'Settings',
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="settings" color={color} size={size} />
           ),
