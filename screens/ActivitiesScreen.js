@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import ItemsList from '../components/ItemsList'
 
 function ActivitiesScreen() {
   return (
     <View>
-      <ItemsList/>
+      <ItemsList />
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import { useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker'
 import DateTiemPicker from '@react-native-community/datetimepicker'
 
@@ -14,12 +14,13 @@ function Field({
 
   // Activities (DropDownPicker) state
   const [dropDownOpen, setDropDownOpen] = useState(false)
-  const [dropDownValue, setDropDownValue] = useState(null)
+  const [dropDownValue, setDropDownValue] = useState(value)
 
   // Date (DateTimePicker) state
   const [date, setDate] = useState(null)
   const [showDateTimePicker, setShowDateTimePicker] = useState(false)
 
+  // Handle date change
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShowDateTimePicker(false);
@@ -27,10 +28,12 @@ function Field({
     onChange && onChange(currentDate);
   };
 
+  // Show date picker
   const showDatePicker = () => {
     setShowDateTimePicker(true);
   }
 
+  // Render input field based on type
   const renderInputField = () => {
     switch (type) {
       case 'text':
@@ -58,7 +61,7 @@ function Field({
             value={date && date.toDateString()}
             onPressIn={showDatePicker}/>
             {showDateTimePicker && (
-              <DateTimePicker
+              <DateTiemPicker
                 value={date || new Date()}
                 mode='date'
                 display='inline'
@@ -72,6 +75,7 @@ function Field({
     }
   }
 
+  // Render the field
   return (
     <>
     <Text>{label}{required && ' *'}</Text>

@@ -1,6 +1,5 @@
 import { FlatList } from 'react-native'
-import Item from './Item'
-import React from 'react'
+import Item from './Item';
 
 // Fake data for testing
 const DATA = [
@@ -32,13 +31,13 @@ function ItemsList() {
     <FlatList
       data={DATA}
       keyExtractor={item => item.id}
-      renderItem={({item}) => {
+      renderItem={({item}) => (
         <Item
           description={item.description}
           date={item.date}
           value={item.value}
           showIcon={item.showIcon}/>
-      }}
+      )}
     />
   );
 }
