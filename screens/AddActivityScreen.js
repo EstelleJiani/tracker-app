@@ -1,18 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { View } from 'react-native';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
 
 
 // Constants for the options in the activity dropdown
 const activityOptions = [
-  {label: 'Walking', value: 'walking'},
-  {label: 'Running', value: 'running'},
-  {label: 'Swimming', value: 'swimming'},
-  {label: 'Weights', value: 'weights'},
-  {label: 'Yoga', value: 'yoga'},
-  {label: 'Cycling', value: 'cycling'},
-  {label: 'Hiking', value: 'hiking'},
+  {label: 'Walking', value: 'Walking'},
+  {label: 'Running', value: 'Running'},
+  {label: 'Swimming', value: 'Swimming'},
+  {label: 'Weights', value: 'Weights'},
+  {label: 'Yoga', value: 'Yoga'},
+  {label: 'Cycling', value: 'Cycling'},
+  {label: 'Hiking', value: 'Hiking'},
 ];
 
 function AddActivityScreen() {
