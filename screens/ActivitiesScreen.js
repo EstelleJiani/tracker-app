@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ActivitiesScreen
+export default ActivitiesScreen;
