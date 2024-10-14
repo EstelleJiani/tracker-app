@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from './components/ThemeContext';
 import { DataProvider } from './components/DataContext';
-import NavigationTab from './components/NavigationTab';
+import MainNavigator from './components/MainNavigator';
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
           <DataProvider>
-            <NavigationTab />
+            <MainNavigator />
           </DataProvider>
         </NavigationContainer>
         <StatusBar style="auto" />
