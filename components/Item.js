@@ -1,5 +1,7 @@
 import { Text, View } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTheme } from './ThemeContext';
+import { globalStyles } from '../styles/globalStyles';
 
 // The Item component that makes up the list of items in the ActivityScreen and DietScreen.
 function Item ({
@@ -8,21 +10,24 @@ function Item ({
   value,
   showIcon
 }) {
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
+
   return (
-    <View style ={{backgroundColor: 'cornflowerblue'}}>
-      <Text>{description}</Text>
-      {showIcon && (
-        <Ionicons name="warning" size={24} color="#FFD700" />
-      )}
-
-      <View>
-        <Text>{date.toDateString()}</Text>
+    <View style={styles.item}>
+      <Text style={styles.itemTitle}>{description}</Text>
+      <View style={styles.itemDetailsContainer}>
+        {showIcon && (
+          <Ionicons name="warning" size={24} color="#FFD700" />
+        )}
+        <View style={styles.itemTextContainer}>
+          <Text style={styles.itemText}>{date.toDateString()}</Text>
+        </View>
+        <View style={styles.itemTextContainer}>
+          <Text style={styles.itemText}>{value}</Text>
+        </View>
       </View>
-
-      <View>
-        <Text>{value}</Text>
-      </View>
-  </View>
+    </View>
   );
 }
 

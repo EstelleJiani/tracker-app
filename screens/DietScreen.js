@@ -1,13 +1,16 @@
-import { useContext } from 'react';
 import { View } from 'react-native';
-import { DataContext } from '../components/DataContext';
+import { useData } from '../components/DataContext';
+import { useTheme } from '../components/ThemeContext';
+import { globalStyles } from '../styles/globalStyles';
 import ItemsList from '../components/ItemsList';
 
 function DietScreen() {
-  const { diets } = useContext(DataContext);
+  const { diets } = useData();
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
 
   return (
-    <View>
+    <View style={styles.container}>
       <ItemsList data={diets} />
     </View>
   );

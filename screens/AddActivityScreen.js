@@ -1,9 +1,17 @@
-import { useContext, useState } from 'react';
-import { Alert, View } from 'react-native';
-import { DataContext } from '../components/DataContext';
+import { useState } from 'react';
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import { useData } from '../components/DataContext';
+import { useTheme } from '../components/ThemeContext';
+import { globalStyles } from '../styles/globalStyles';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
-
 
 // Constants for the options in the activity dropdown
 const activityOptions = [
@@ -18,7 +26,10 @@ const activityOptions = [
 
 // addActivity function
 function AddActivityScreen({ navigation }) {
-  const { addActivity } = useContext(DataContext);
+  const { addActivity } = useData();
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
+
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
@@ -52,31 +63,42 @@ function AddActivityScreen({ navigation }) {
   };
 
   return (
-    <View>
-      <Field
-        label="Activity"
-        required={true}
-        type='dropdown'
-        options={activityOptions}
-        value={description}
-        onChange={setDescription}
-      />
-      <Field
-        label="Duration (min)"
-        required={true}
-        type='text'
-        value={duration}
-        onChange={setDuration}
-      />
-      <Field
-        label="Date"
-        required={true}
-        type='date'
-        value={date}
-        onChange={setDate}
-      />
-      <FormActionButtons onSave={handleSave} />
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.inner}>
+          <View style={styles.formFieldsContainer}>
+            <Field
+              label='Activity'
+              required={true}
+              type='dropdown'
+              options={activityOptions}
+              value={description}
+              onChange={setDescription}
+            />
+            <Field
+              label='Duration (min)'
+              required={true}
+              type='text'
+              value={duration}
+              onChange={setDuration}
+            />
+            <Field
+              label='Date'
+              required={true}
+              type='date'
+              value={date}
+              onChange={setDate}
+            />
+          </View>
+          <View style={styles.buttonsContainer}>
+            <FormActionButtons onSave={handleSave} />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 

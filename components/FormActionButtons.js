@@ -1,7 +1,12 @@
 import { Alert, Button, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from './ThemeContext';
+import { globalStyles } from '../styles/globalStyles';
 
 function FormActionButtons({ onSave }) {
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
+
   const navigation = useNavigation();
 
   const handleCancel = () => {
@@ -16,7 +21,7 @@ function FormActionButtons({ onSave }) {
   }
 
   return (
-    <View>
+    <View style={styles.formActionButtonsContainer}>
       <Button
         title='Cancel'
         onPress={handleCancel}

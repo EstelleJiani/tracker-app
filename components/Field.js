@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Text, TextInput } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useTheme } from './ThemeContext';
+import { globalStyles } from '../styles/globalStyles';
 
 function Field({
   label,
@@ -11,6 +13,9 @@ function Field({
   value,
   onChange,
 }) {
+
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
 
   // Activities (DropDownPicker) state
   const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -38,6 +43,7 @@ function Field({
           <TextInput
             value={value}
             onChangeText={onChange}
+            style={styles.input}
           />
         );
       case 'textarea':
@@ -46,7 +52,7 @@ function Field({
             value={value}
             onChangeText={onChange}
             multiline={true}
-            style={{height: 100, textAlignVertical: 'top',}}
+            style={styles.inputArea}
           />
         );
       case 'dropdown':
@@ -56,7 +62,7 @@ function Field({
             value={value}
             items={options}
             setOpen={setDropDownOpen}
-            setValue={(callback)=>onChange(callback())}
+            setValue={(callback) => onChange(callback())}
           />
         );
       case 'date':
@@ -64,7 +70,9 @@ function Field({
           <>
           <TextInput 
             value={value && value.toDateString()}
-            onPressIn={showDatePicker}/>
+            onPressIn={showDatePicker}
+            style={styles.input}
+          />
           {showDateTimePicker && (
             <DateTimePicker
               value={value || new Date()}
@@ -82,8 +90,9 @@ function Field({
   // Render the field
   return (
     <>
-    <Text>{label}{required && ' *'}</Text>
-    {renderInputField()}
+      <Text style={styles.label}>{label}{required && ' *'}</Text>
+      {renderInputField()}
+      <View style={styles.divider} />
     </>
   );
 }

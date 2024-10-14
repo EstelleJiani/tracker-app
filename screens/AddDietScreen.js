@@ -1,13 +1,25 @@
-import { useContext, useState } from 'react';
-import { Alert, View } from 'react-native';
-import { DataContext } from '../components/DataContext';
+import { useState } from 'react';
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
+import { useData } from '../components/DataContext';
+import { useTheme } from '../components/ThemeContext';
+import { globalStyles } from '../styles/globalStyles';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
 
 
 // The AddDietScreen 
 function AddDietScreen({ navigation }) {
-  const { addDiet } = useContext(DataContext);
+  const { addDiet } = useData();
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
+
   const [description, setDescription] = useState('');
   const [calories, setCalories] = useState('');
   const [date, setDate] = useState(null);
@@ -42,30 +54,41 @@ function AddDietScreen({ navigation }) {
   };
 
   return (
-    <View>
-      <Field
-        label='Description'
-        required={true}
-        type='textarea'
-        value={description}
-        onChange={setDescription}
-      />
-      <Field
-        label='Calories'
-        required={true}
-        type='text'
-        value={calories}
-        onChange={setCalories}
-      />
-      <Field
-        label='Date'
-        required={true}
-        type='date'
-        value={date}
-        onChange={setDate}
-      />
-      <FormActionButtons onSave={handleSave} />
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.inner}>
+          <View style={styles.formFieldsContainer}>
+            <Field
+              label='Description'
+              required={true}
+              type='textarea'
+              value={description}
+              onChange={setDescription}
+            />
+            <Field
+              label='Calories'
+              required={true}
+              type='text'
+              value={calories}
+              onChange={setCalories}
+            />
+            <Field
+              label='Date'
+              required={true}
+              type='date'
+              value={date}
+              onChange={setDate}
+            />
+          </View>
+          <View style={styles.buttonsContainer}>
+            <FormActionButtons onSave={handleSave} />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 

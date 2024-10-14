@@ -2,6 +2,8 @@ import { Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useTheme } from '../components/ThemeContext';
+import { globalStyles } from '../styles/globalStyles';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
 import AddActivityScreen from '../screens/AddActivityScreen';
 import DietScreen from '../screens/DietScreen';
@@ -18,8 +20,18 @@ const SettingStack = createStackNavigator();
 
 // Create the Activities Stack Navigator
 function ActivitiesStackScreen() {
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
+
   return (
-    <ActivitiesStack.Navigator>
+    <ActivitiesStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.headerBackground,
+        },
+        headerTintColor: theme.headerTintColor,
+      }}
+    >
       <ActivitiesStack.Screen
         name="Activities"
         component={ActivitiesScreen}
@@ -64,7 +76,7 @@ function DietStackScreen() {
       <DietStack.Screen
         name="AddDiet"
         component={AddDietScreen}
-        options={()=>({
+        options={() => ({
           title: 'Add A Diet Entry',
         })}
       />
@@ -89,8 +101,21 @@ function SettingsStackScreen() {
 
 // Create the Tab Navigator
 function NavigationTab() {
+  const { theme } = useTheme();
+  const styles = globalStyles(theme);
+
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme.tabBackground,
+          borderTopColor: theme.tabBackground,
+        },
+        tabBarActiveTintColor: theme.tabIconSelected,
+        tabBarInactiveTintColor: theme.tabIconDefault,
+      }}
+    >
       <Tab.Screen 
         name="ActivitiesStack"
         component={ActivitiesStackScreen}
@@ -113,7 +138,7 @@ function NavigationTab() {
       />
 
       <Tab.Screen
-        name="Settings"
+        name="SettingsStack"
         component={SettingsStackScreen} 
         options={{
           title: 'Settings',
