@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { DataContext } from '../components/DataContext';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
@@ -23,7 +23,23 @@ function AddActivityScreen({ navigation }) {
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
 
+  const validateForm = () => {
+    if (!description || !duration || !date) {
+      return false;
+    }
+    if (isNaN(duration) || parseInt(duration) <= 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   const handleSave = () => {
+    if (!validateForm()) {
+      Alert.alert('Invalid input','Please check your input values');
+      return;
+    }
+
     const newActivity = {
       id: Date.now().toString(),
       description,                          // Activity

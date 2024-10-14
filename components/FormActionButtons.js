@@ -1,14 +1,19 @@
-import { View, Button } from 'react-native'
-import {useNavigation} from '@react-navigation/native';
+import { Alert, Button, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 function FormActionButtons({ onSave }) {
-  
   const navigation = useNavigation();
 
   const handleCancel = () => {
-    navigation.goBack();
+    Alert.alert(
+      'Confirm Cancel',
+      'Are you sure you want to cancel? Unsaved changes will be lost.',
+      [
+        { text: 'No', style: 'cancel' },
+        { text: 'Yes', onPress: () => navigation.goBack() },
+      ]
+    );
   }
-
 
   return (
     <View>
