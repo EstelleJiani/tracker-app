@@ -28,6 +28,10 @@ export const globalStyles = (theme) => StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 10,
     elevation: 3,
+    shadowColor: theme.shadowColor,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   itemTitle: {
     color: theme.text,
