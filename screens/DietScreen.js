@@ -1,10 +1,16 @@
-import { View } from 'react-native'
-import ItemsList from '../components/ItemsList'
+import { useContext } from 'react';
+import { View } from 'react-native';
+import { DataContext } from '../components/DataContext';
+import ItemsList from '../components/ItemsList';
 
-export default function DietScreen() {
+function DietScreen() {
+  const { diets } = useContext(DataContext);
+
   return (
     <View>
-      <ItemsList />
+      <ItemsList data={diets} />
     </View>
-  )
+  );
 }
+
+export default DietScreen;

@@ -1,30 +1,27 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
-import { useState } from 'react'
-import DropDownPicker from 'react-native-dropdown-picker'
-import DateTiemPicker from '@react-native-community/datetimepicker'
+import { useState } from 'react';
+import { Text, TextInput } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 function Field({
   label,
-  required=false,
-  type='text', // or 'textarea', 'select', 'date'
-  options=[], // {label: 'Label', value: 'value'}
+  required = false,
+  type = 'text',  // or 'textarea', 'select', 'date'
+  options = [],   // {label: 'Label', value: 'value'}
   value,
   onChange,
 }) {
 
   // Activities (DropDownPicker) state
-  const [dropDownOpen, setDropDownOpen] = useState(false)
-  const [dropDownValue, setDropDownValue] = useState(value)
+  const [dropDownOpen, setDropDownOpen] = useState(false);
 
   // Date (DateTimePicker) state
-  const [date, setDate] = useState(null)
   const [showDateTimePicker, setShowDateTimePicker] = useState(false)
 
   // Handle date change
   const onChangeDate = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShowDateTimePicker(false);
-    setDate(currentDate);
     onChange && onChange(currentDate);
   };
 
@@ -56,26 +53,25 @@ function Field({
         return (
           <DropDownPicker
             open={dropDownOpen}
-            value={dropDownValue}
+            value={value}
             items={options}
             setOpen={setDropDownOpen}
-            setValue={setDropDownValue}
+            setValue={(callback)=>onChange(callback())}
           />
         );
       case 'date':
         return (
           <>
           <TextInput 
-            value={date && date.toDateString()}
+            value={value && value.toDateString()}
             onPressIn={showDatePicker}/>
-            {showDateTimePicker && (
-              <DateTiemPicker
-                value={date || new Date()}
-                mode='date'
-                display='inline'
-                onChange={onChangeDate}
-              />
-            )}
+          {showDateTimePicker && (
+            <DateTimePicker
+              value={value || new Date()}
+              display='inline'
+              onChange={onChangeDate}
+            />
+          )}
           </>
         );
       default:

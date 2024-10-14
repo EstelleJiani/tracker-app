@@ -1,4 +1,6 @@
+import { useContext, useState } from 'react';
 import { View } from 'react-native';
+import { DataContext } from '../components/DataContext';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
 
@@ -14,15 +16,12 @@ const activityOptions = [
   {label: 'Hiking', value: 'Hiking'},
 ];
 
+// addActivity function
 function AddActivityScreen({ navigation }) {
   const { addActivity } = useContext(DataContext);
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(null);
-
-  const handleCancel = () => {
-    navigation.goBack();
-  }
 
   const handleSave = () => {
     const newActivity = {
@@ -60,9 +59,9 @@ function AddActivityScreen({ navigation }) {
         value={date}
         onChange={setDate}
       />
-      <FormActionButtons onCancel={handleCancel} onSave={handleSave} />
+      <FormActionButtons onSave={handleSave} />
     </View>
-  )
+  );
 }
 
 export default AddActivityScreen;

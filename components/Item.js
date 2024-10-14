@@ -1,5 +1,5 @@
-import { Text, View } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Text, View } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // The Item component that makes up the list of items in the ActivityScreen and DietScreen.
 function Item ({
@@ -16,7 +16,7 @@ function Item ({
       )}
 
       <View>
-        <Text>{date}</Text>
+        <Text>{date.toDateString()}</Text>
       </View>
 
       <View>

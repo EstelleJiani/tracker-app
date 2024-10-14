@@ -1,12 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import ItemsList from '../components/ItemsList'
+import { useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { DataContext } from '../components/DataContext';
+import ItemsList from '../components/ItemsList';
 
 function ActivitiesScreen() {
+  const { activities } = useContext(DataContext);
+
   return (
     <View>
-      <ItemsList />
+      <ItemsList data={activities} />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -22,6 +26,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
   },
-})
+});
 
 export default ActivitiesScreen;

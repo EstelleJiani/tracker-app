@@ -1,6 +1,6 @@
 import { Button } from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
 import AddActivityScreen from '../screens/AddActivityScreen';
@@ -23,7 +23,7 @@ function ActivitiesStackScreen() {
       <ActivitiesStack.Screen
         name="Activities"
         component={ActivitiesScreen}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           title: 'Activities',
           headerRight: () => (
             <Button
@@ -36,7 +36,7 @@ function ActivitiesStackScreen() {
       <ActivitiesStack.Screen
         name="AddActivity"
         component={AddActivityScreen}
-        options={()=>({
+        options={() => ({
           title: 'Add An Activity',
         })}
       />
@@ -45,13 +45,13 @@ function ActivitiesStackScreen() {
 }
 
 // Create the Diet Stack Navigator
-function  DietStackScreen() {
+function DietStackScreen() {
   return (
     <DietStack.Navigator>
       <DietStack.Screen
         name="Diet"
         component={DietScreen}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           title: 'Diet',
           headerRight: () => (
             <Button
@@ -90,32 +90,34 @@ function SettingsStackScreen() {
 // Create the Tab Navigator
 function NavigationTab() {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen 
         name="ActivitiesStack"
         component={ActivitiesStackScreen}
         options={{
           title: 'Activities',
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="directions-run" color={color} size={size} />
           ),
-        }}/>
+        }}
+      />
       <Tab.Screen
         name="DietStack"
         component={DietStackScreen}
         options={{
           title: 'Diet',
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="fastfood" color={color} size={size} />
           ),
-        }}/>
+        }}
+      />
 
       <Tab.Screen
         name="Settings"
         component={SettingsStackScreen} 
         options={{
           title: 'Settings',
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="settings" color={color} size={size} />
           ),
         }}

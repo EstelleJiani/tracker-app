@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Button, View } from 'react-native';
 
-export default function SettingsScreen() {
+function SettingsScreen() {
   return (
     <View>
-      <Text>SettingsScreen</Text>
+      <Button title='Toggle Theme' />
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create({})
+export default SettingsScreen;
