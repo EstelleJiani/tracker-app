@@ -56,7 +56,10 @@ function AddActivityScreen({ navigation }) {
       description,                          // Activity
       value: duration.toString() + " min",  // Duration
       date,
-      showIcon: duration > 60 ? true : false,
+      showIcon: parseInt(duration) > 60 && (
+        description === 'Running' ||
+        description === 'Weights'
+      ) ? true : false,
     };
     addActivity(newActivity);
     navigation.goBack();

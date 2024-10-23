@@ -30,9 +30,13 @@ function Field({
     onChange && onChange(currentDate);
   };
 
-  // Show date picker
-  const showDatePicker = () => {
-    setShowDateTimePicker(true);
+  // Toggle date picker visibility
+  // Set current date if no date is selected
+  const toggleDatePicker = () => {
+    if (!value) {
+      onChange && onChange(new Date());
+    }
+    setShowDateTimePicker(!showDateTimePicker);
   }
 
   // Render input field based on type
@@ -68,18 +72,18 @@ function Field({
       case 'date':
         return (
           <>
-          <TextInput 
-            value={value && value.toDateString()}
-            onPressIn={showDatePicker}
-            style={styles.input}
-          />
-          {showDateTimePicker && (
-            <DateTimePicker
-              value={value || new Date()}
-              display='inline'
-              onChange={onChangeDate}
+            <TextInput
+              value={value && value.toDateString()}
+              onPressIn={toggleDatePicker}
+              style={styles.input}
             />
-          )}
+            {showDateTimePicker && (
+              <DateTimePicker
+                value={value || new Date()}
+                display='inline'
+                onChange={onChangeDate}
+              />
+            )}
           </>
         );
       default:
