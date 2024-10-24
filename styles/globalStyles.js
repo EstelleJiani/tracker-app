@@ -143,6 +143,7 @@ export const globalStyles = (theme) => StyleSheet.create({
   },
   standardButtonText: {
     color: theme.buttonText,
+    fontWeight: '500',
   },
 
   // AddButton styles

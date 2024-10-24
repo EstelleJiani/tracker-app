@@ -1,6 +1,7 @@
-import { Button, View } from 'react-native';
+import { View } from 'react-native';
 import { useTheme } from '../components/ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
+import StandardButton from '../components/StandardButton';
 
 function SettingsScreen() {
   const { theme, toggleTheme } = useTheme();
@@ -8,10 +9,9 @@ function SettingsScreen() {
 
   return (
     <View style={styles.container}>
-      <Button
-        title='Toggle Theme'
+      <StandardButton
+        title="Toggle Theme"
         onPress={toggleTheme}
-        style={styles.button}
       />
     </View>
   );
