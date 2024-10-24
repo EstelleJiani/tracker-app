@@ -23,17 +23,21 @@ export const DataProvider = ({ children }) => {
       }
     );
 
-    // const unsubscribeDiets = onSnapshot(
-    //   collection(database, 'diets'),
-    //   (snapshot) => {
-    //     const dietDocs = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
-    //     setDiets(dietDocs);
-    //   }
-    // );
+    const unsubscribeDiets = onSnapshot(
+      collection(database, 'diets'),
+      (snapshot) => {
+        const dietDocs = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          date: doc.data().date.toDate()
+        }));
+        setDiets(dietDocs);
+      }
+    );
 
     return () => {
       unsubscribeActivities();
-      // unsubscribeDiets();
+      unsubscribeDiets();
     };
   }, []);
 
@@ -47,13 +51,12 @@ export const DataProvider = ({ children }) => {
   };
 
   // Add Diet
-  const addDiet = (newDiet) => {
-    setDiets((prevDiets) => {
-      const updatedDiets = [...prevDiets, newDiet];
-      // Sort by date
-      updatedDiets.sort((a, b) => b.date - a.date);
-      return updatedDiets;
-    });
+  const addDiet = async (newDiet) => {
+    try {
+      await writeToDatabase('diets', newDiet);
+    } catch (error) {
+      console.error('Error adding diet: ', error);
+    }
   };
 
   return (

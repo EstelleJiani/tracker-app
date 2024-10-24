@@ -36,7 +36,7 @@ function AddDietScreen({ navigation }) {
   }
 
   // handleSave function
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!validateForm()) {
       Alert.alert('Invalid input','Please check your input values');
       return;
@@ -49,8 +49,12 @@ function AddDietScreen({ navigation }) {
       date,
       showIcon: parseInt(calories) > 800 ? true : false,
     };
-    addDiet(newDiet);
-    navigation.goBack();
+    try {
+      await addDiet(newDiet);
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error adding diet: ', error);
+    }
   };
 
   return (
