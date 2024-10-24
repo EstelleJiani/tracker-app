@@ -123,7 +123,26 @@ export const globalStyles = (theme) => StyleSheet.create({
   pressableButtonPressed: {
     opacity: 0.7,
   },
-  pressableButtonDisabled: {
+
+  // StandardButton styles
+  standardButton: {
+    backgroundColor: theme.buttonBackground,
+    paddingHorizontal: 10,
+    height: 48,
+    borderRadius: 8,
+    marginVertical: 8,
+  },
+  standardButtonPrimary: {
+    // backgroundColor: theme.buttonPrimaryBackground,
+  },
+  standardButtonSecondary: {
+    // backgroundColor: theme.buttonSecondaryBackground,
+  },
+  standardButtonDisabled: {
+    opacity: 0.5,
+  },
+  standardButtonText: {
+    color: theme.buttonText,
   },
 
   // AddButton styles

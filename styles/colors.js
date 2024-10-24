@@ -8,7 +8,7 @@ export const colors = {
   light: {
     text: '#11181C',
     background: '#F2F2F2',
-    buttonBackground: '#11181C',
+    buttonBackground: tintColorLight,
     buttonText: '#F2F2F2',
     tint: tintColorLight,
     icon: '#687076',

@@ -3,10 +3,10 @@ import { useTheme } from "./ThemeContext";
 import { globalStyles } from "../styles/globalStyles";
 
 function PressableButton({
-  children,
   onPress,
-  variant = 'primary',
-  disabled = false
+  disabled = false,
+  style = {},
+  children,
 }) {
   const { theme } = useTheme();
   const styles = globalStyles(theme);
@@ -17,9 +17,8 @@ function PressableButton({
       disabled={disabled}
       style={({ pressed }) => [
         styles.pressableButton,
-        styles[`pressableButton${variant}`],
-        pressed && styles.pressableButtonPressed,
-        disabled && styles.pressableButtonDisabled,
+        pressed && !disabled && styles.pressableButtonPressed,
+        style,
       ]}
     >
       {children}
