@@ -113,4 +113,12 @@ export const globalStyles = (theme) => StyleSheet.create({
     backgroundColor: theme.inputBackground,
     color: theme.inputTextColor,
   },
+
+  // AddButton styles
+  addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
 });

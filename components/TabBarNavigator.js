@@ -1,10 +1,10 @@
-import { Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useTheme } from './ThemeContext';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
 import DietScreen from '../screens/DietScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import AddButton from './AddButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,8 +28,8 @@ function TabBarNavigator() {
         options={({ navigation }) => ({
           title: 'Activities',
           headerRight: () => (
-            <Button
-              title="Add"
+            <AddButton
+              iconName="directions-run"
               onPress={() => navigation.navigate('AddActivity')}
             />
           ),
@@ -44,8 +44,8 @@ function TabBarNavigator() {
         options={({ navigation }) => ({
           title: 'Diet',
           headerRight: () => (
-            <Button
-              title="Add"
+            <AddButton
+              iconName="fastfood"
               onPress={() => navigation.navigate('AddDiet')}
             />
           ),
