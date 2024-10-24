@@ -114,8 +114,20 @@ export const globalStyles = (theme) => StyleSheet.create({
     color: theme.inputTextColor,
   },
 
+  // PressableButton styles
+  pressableButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pressableButtonPressed: {
+    opacity: 0.7,
+  },
+  pressableButtonDisabled: {
+  },
+
   // AddButton styles
-  addButton: {
+  addButtonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
