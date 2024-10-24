@@ -1,4 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { database } from '../firebase/firebaseConfig';
+import { writeToDatabase } from '../firebase/firebaseHelper';
 
 const DataContext = createContext();
 
@@ -7,15 +10,41 @@ export const DataProvider = ({ children }) => {
   const [activities, setActivities] = useState([]);
   const [diets, setDiets] = useState([]);
 
+  useEffect(() => {
+    const unsubscribeActivities = onSnapshot(
+      collection(database, 'activities'),
+      (snapshot) => {
+        const activityDocs = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          date: doc.data().date.toDate()
+        }));
+        setActivities(activityDocs);
+      }
+    );
+
+    // const unsubscribeDiets = onSnapshot(
+    //   collection(database, 'diets'),
+    //   (snapshot) => {
+    //     const dietDocs = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
+    //     setDiets(dietDocs);
+    //   }
+    // );
+
+    return () => {
+      unsubscribeActivities();
+      // unsubscribeDiets();
+    };
+  }, []);
+
   // Add Activity
-  const addActivity = (newActivity) => {
-    setActivities((prevActivities) => {
-      const updatedActivities = [...prevActivities, newActivity];
-      // Sort by date
-      updatedActivities.sort((a, b) => b.date - a.date);
-      return updatedActivities;
-  });
-};
+  const addActivity = async (newActivity) => {
+    try {
+      await writeToDatabase('activities', newActivity);
+    } catch (error) {
+      console.error('Error adding activity: ', error);
+    }
+  };
 
   // Add Diet
   const addDiet = (newDiet) => {

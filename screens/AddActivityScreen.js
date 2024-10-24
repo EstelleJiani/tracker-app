@@ -45,7 +45,7 @@ function AddActivityScreen({ navigation }) {
     return true;
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!validateForm()) {
       Alert.alert('Invalid input','Please check your input values');
       return;
@@ -61,8 +61,13 @@ function AddActivityScreen({ navigation }) {
         description === 'Weights'
       ) ? true : false,
     };
-    addActivity(newActivity);
-    navigation.goBack();
+
+    try {
+      await addActivity(newActivity);
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error adding activity: ', error);
+    }
   };
 
   return (
