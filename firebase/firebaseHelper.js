@@ -1,6 +1,7 @@
 import { collection, addDoc, doc, deleteDoc, getDocs, updateDoc} from "firebase/firestore"; 
 import { database } from "./firebaseConfig";
 
+// Add a new document to the specified collection
 export async function writeToDatabase(collectionName, data) {
     try {
         const docRef = await addDoc(collection(database, collectionName), data);
@@ -10,6 +11,7 @@ export async function writeToDatabase(collectionName, data) {
     }
 }
 
+// Update a document in the specified collection
 export async function updateInDatabase(collectionName, id, data) {
     try {
         await updateDoc(doc(database, collectionName, id), data);
@@ -19,6 +21,7 @@ export async function updateInDatabase(collectionName, id, data) {
     }
 }
 
+// Delete a document from the specified collection
 export async function deleteFromDatabase(collectionName, id) {
     try {
         await deleteDoc(doc(database, collectionName, id));

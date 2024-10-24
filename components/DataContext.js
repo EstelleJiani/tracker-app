@@ -11,6 +11,7 @@ export const DataProvider = ({ children }) => {
   const [diets, setDiets] = useState([]);
 
   useEffect(() => {
+    // Get Activities from Firestore
     const unsubscribeActivities = onSnapshot(
       collection(database, 'activities'),
       (snapshot) => {
@@ -23,6 +24,7 @@ export const DataProvider = ({ children }) => {
       }
     );
 
+    // Get Diets from Firestore
     const unsubscribeDiets = onSnapshot(
       collection(database, 'diets'),
       (snapshot) => {
@@ -35,13 +37,14 @@ export const DataProvider = ({ children }) => {
       }
     );
 
+    // Cleanup the subscription
     return () => {
       unsubscribeActivities();
       unsubscribeDiets();
     };
   }, []);
 
-  // Add Activity
+  // Add Activity to Firestore
   const addActivity = async (newActivity) => {
     try {
       await writeToDatabase('activities', newActivity);
@@ -50,7 +53,7 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  // Add Diet
+  // Add Diet to Firestore
   const addDiet = async (newDiet) => {
     try {
       await writeToDatabase('diets', newDiet);

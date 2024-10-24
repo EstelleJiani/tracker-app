@@ -62,6 +62,7 @@ function AddActivityScreen({ navigation }) {
       ) ? true : false,
     };
 
+    // Add Activity to Firestore
     try {
       await addActivity(newActivity);
       navigation.goBack();

@@ -49,6 +49,8 @@ function AddDietScreen({ navigation }) {
       date,
       showIcon: parseInt(calories) > 800 ? true : false,
     };
+
+    // Add Diet to Firestore
     try {
       await addDiet(newDiet);
       navigation.goBack();
