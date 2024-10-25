@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from './components/ThemeContext';
-import { DataProvider } from './components/DataContext';
 import MainNavigator from './components/MainNavigator';
 
 export default function App() {
@@ -10,9 +9,7 @@ export default function App() {
     <ThemeProvider>
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          <DataProvider>
-            <MainNavigator />
-          </DataProvider>
+          <MainNavigator />
         </NavigationContainer>
         <StatusBar style="auto" />
       </SafeAreaView>

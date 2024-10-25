@@ -1,4 +1,4 @@
-import { onSnapshot, collection } from "firebase/firestore"; 
+import { onSnapshot, collection, doc, addDoc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { database } from "./firebaseConfig";
 
 // Listen to a collection and call a callback with the documents

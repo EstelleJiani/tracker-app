@@ -2,6 +2,7 @@ import { Pressable } from "react-native";
 import { useTheme } from "./ThemeContext";
 import { globalStyles } from "../styles/globalStyles";
 
+// The PressableButton component
 function PressableButton({
   onPress,
   disabled = false,

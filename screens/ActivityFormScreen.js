@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useData } from '../components/DataContext';
+import { writeToDatabase } from '../firebase/firebaseHelper';
 import { useTheme } from '../components/ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
 import Field from '../components/Field';
@@ -26,7 +26,6 @@ const activityOptions = [
 
 // The ActivityFormScreen
 function ActivityFormScreen({ navigation }) {
-  const { addActivity } = useData();
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
@@ -64,7 +63,7 @@ function ActivityFormScreen({ navigation }) {
 
     // Add Activity to Firestore
     try {
-      await addActivity(newActivity);
+      await writeToDatabase('activities', newActivity);
       navigation.goBack();
     } catch (error) {
       console.error('Error adding activity: ', error);

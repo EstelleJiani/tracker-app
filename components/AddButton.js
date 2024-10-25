@@ -4,6 +4,7 @@ import { useTheme } from './ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
 import PressableButton from './PressableButton';
 
+// The AddButton component
 function AddButton({ onPress, iconName, color }) {
   const { theme } = useTheme();
   const styles = globalStyles(theme);

@@ -30,7 +30,7 @@ function TabBarNavigator() {
           headerRight: () => (
             <AddButton
               iconName="directions-run"
-              onPress={() => navigation.navigate('AddActivity')}
+              onPress={() => navigation.navigate('ActivityForm')}
             />
           ),
           tabBarIcon: ({ color, size }) => (
@@ -46,7 +46,7 @@ function TabBarNavigator() {
           headerRight: () => (
             <AddButton
               iconName="fastfood"
-              onPress={() => navigation.navigate('AddDiet')}
+              onPress={() => navigation.navigate('DietForm')}
             />
           ),
           tabBarIcon: ({ color, size }) => (

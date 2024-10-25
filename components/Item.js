@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useTheme } from './ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
+import PressableButton from './PressableButton';
 
 // The Item component that makes up the list of items in the ActivityScreen and DietScreen.
 function Item ({
@@ -14,7 +15,9 @@ function Item ({
   const styles = globalStyles(theme);
 
   return (
-    <View style={styles.item}>
+    <PressableButton
+      style={styles.item}
+    >
       <Text style={styles.itemTitle}>{description}</Text>
       <View style={styles.itemDetailsContainer}>
         {showIcon && (
@@ -27,7 +30,7 @@ function Item ({
           <Text style={styles.itemText}>{value}</Text>
         </View>
       </View>
-    </View>
+    </PressableButton>
   );
 }
 

@@ -7,16 +7,14 @@ import {
   TouchableWithoutFeedback,
   View
 } from 'react-native';
-import { useData } from '../components/DataContext';
+import { writeToDatabase } from '../firebase/firebaseHelper';
 import { useTheme } from '../components/ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
 
-
 // The DietFormScreen
 function DietFormScreen({ navigation }) {
-  const { addDiet } = useData();
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
@@ -52,7 +50,7 @@ function DietFormScreen({ navigation }) {
 
     // Add Diet to Firestore
     try {
-      await addDiet(newDiet);
+      await writeToDatabase('diets', newDiet);
       navigation.goBack();
     } catch (error) {
       console.error('Error adding diet: ', error);

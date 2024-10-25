@@ -3,6 +3,7 @@ import { useTheme } from "./ThemeContext";
 import { globalStyles } from "../styles/globalStyles";
 import PressableButton from "./PressableButton";
 
+// The StandardButton component
 function StandardButton({
   onPress,
   title,
