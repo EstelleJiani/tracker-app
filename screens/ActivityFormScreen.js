@@ -24,8 +24,8 @@ const activityOptions = [
   {label: 'Hiking', value: 'Hiking'},
 ];
 
-// addActivity function
-function AddActivityScreen({ navigation }) {
+// The ActivityFormScreen
+function ActivityFormScreen({ navigation }) {
   const { addActivity } = useData();
   const { theme } = useTheme();
   const styles = globalStyles(theme);
@@ -111,4 +111,4 @@ function AddActivityScreen({ navigation }) {
   );
 }
 
-export default AddActivityScreen;
+export default ActivityFormScreen;

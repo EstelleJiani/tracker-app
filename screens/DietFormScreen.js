@@ -14,8 +14,8 @@ import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
 
 
-// The AddDietScreen 
-function AddDietScreen({ navigation }) {
+// The DietFormScreen
+function DietFormScreen({ navigation }) {
   const { addDiet } = useData();
   const { theme } = useTheme();
   const styles = globalStyles(theme);
@@ -98,4 +98,4 @@ function AddDietScreen({ navigation }) {
   );
 }
 
-export default AddDietScreen;
+export default DietFormScreen;

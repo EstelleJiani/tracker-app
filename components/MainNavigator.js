@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from './ThemeContext';
 import TabBarNavigator from './TabBarNavigator';
-import AddActivityScreen from '../screens/AddActivityScreen'
-import AddDietScreen from '../screens/AddDietScreen';
+import ActivityFormScreen from '../screens/ActivityFormScreen'
+import DietFormScreen from '../screens/DietFormScreen';
 
 const Stack = createStackNavigator();
 
@@ -29,14 +29,14 @@ function MainNavigator() {
       />
       <Stack.Screen
         name="AddActivity"
-        component={AddActivityScreen}
+        component={ActivityFormScreen}
         options={{
           title: 'Add An Activity',
         }}
       />
       <Stack.Screen
         name="AddDiet"
-        component={AddDietScreen}
+        component={DietFormScreen}
         options={{
           title: 'Add A Diet Entry',
         }}
