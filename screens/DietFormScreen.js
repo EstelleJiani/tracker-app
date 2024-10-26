@@ -1,27 +1,55 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Text,
   TouchableWithoutFeedback,
   View
 } from 'react-native';
-import { writeToDatabase } from '../firebase/firebaseHelper';
+import Checkbox from 'expo-checkbox';
+import {
+  deleteFromDatabase,
+  updateInDatabase,
+  writeToDatabase,
+} from '../firebase/firebaseHelper';
 import { useTheme } from '../components/ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
+import IconButton from '../components/IconButton';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
 
 // The DietFormScreen
-function DietFormScreen({ navigation }) {
+function DietFormScreen({ navigation, route }) {
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
-  const [description, setDescription] = useState('');
-  const [calories, setCalories] = useState('');
-  const [date, setDate] = useState(null);
+  // Get the diet from the route params
+  const diet = route.params?.diet;
+  const isEditMode = !!diet;
 
+  // Initialize the state variables
+  const [description, setDescription] = useState(diet?.description || '');
+  const [calories, setCalories] = useState(diet?.value?.toString() || '');
+  const [date, setDate] = useState(diet?.date || null);
+
+  // State variable for the ignore special checkbox
+  const [ignoreSpecial, setIgnoreSpecial] = useState(false);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: isEditMode ? 'Edit' : 'Add A Diet Entry',
+      headerRight: isEditMode ? () => (
+        <IconButton
+          type='delete'
+          onPress={handleDelete}
+        />
+      ) : undefined,
+    });
+  }, [navigation, isEditMode]);
+
+  // Validate the form
   const validateForm = () => {
     if (!description || !calories || !date) {
       return false;
@@ -40,20 +68,51 @@ function DietFormScreen({ navigation }) {
       return;
     }
 
-    const newDiet = {
-      id: Date.now().toString(),
+    // Create the diet data object
+    const dietData = {
       description,
       value: parseInt(calories),
       date,
-      showIcon: parseInt(calories) > 800 ? true : false,
+      showIcon: parseInt(calories) > 800,
     };
 
     // Add Diet to Firestore
     try {
-      await writeToDatabase('diets', newDiet);
-      navigation.goBack();
+      if (isEditMode) {
+        Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          { text: 'No' },
+          { text: 'Yes', onPress: async () => {
+            if (dietData.showIcon && ignoreSpecial) {
+              dietData.showIcon = false;
+            }
+            await updateInDatabase('diets', diet.id, dietData);
+            navigation.goBack();
+          }},
+        ]);
+      } else {
+        await writeToDatabase('diets', dietData);
+        navigation.goBack();
+      }
     } catch (error) {
       console.error('Error adding diet: ', error);
+    }
+  };
+
+  // Handle the delete button press
+  const handleDelete = async () => {
+    Alert.alert('Delete', 'Are you sure you want to delete this item?', [
+      { text: 'No' },
+      { text: 'Yes', onPress: () => handleDeleteConfirmed() },
+    ]);
+  };
+
+  // Handle the delete confirmed button press
+  const handleDeleteConfirmed = async () => {
+    try {
+      await deleteFromDatabase('diets', diet.id);
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error deleting diet: ', error);
     }
   };
 
@@ -87,6 +146,19 @@ function DietFormScreen({ navigation }) {
               onChange={setDate}
             />
           </View>
+
+          {(isEditMode && diet?.showIcon) && (
+            <View>
+              <Text>
+                This item is marked as special. Select the checkbox if you would like to approve it.
+              </Text>
+              <Checkbox
+                value={ignoreSpecial}
+                onValueChange={setIgnoreSpecial}
+              />
+            </View>
+          )}
+
           <View style={styles.buttonsContainer}>
             <FormActionButtons onSave={handleSave} />
           </View>

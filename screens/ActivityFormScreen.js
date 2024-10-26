@@ -79,16 +79,15 @@ function ActivityFormScreen({ navigation, route }) {
       return;
     }
 
+    // Create the activity data object
     const activityData = {
       description,                          // Activity
       value: duration.toString() + " min",  // Duration
       date,
-      showIcon: isEditMode ? !ignoreSpecial : (
-        parseInt(duration) > 60 && (
-          description === 'Running' ||
-          description === 'Weights'
-        )
-       ),
+      showIcon: parseInt(duration) > 60 && (
+        description === 'Running' ||
+        description === 'Weights'
+      ),
     };
 
     // Add or update the activity in Firestore
@@ -97,10 +96,12 @@ function ActivityFormScreen({ navigation, route }) {
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
           { text: 'No' },
           { text: 'Yes', onPress: async () => {
-              await updateInDatabase('activities', activity.id, activityData);
-              navigation.goBack();
+            if (activityData.showIcon && ignoreSpecial) {
+              activityData.showIcon = false;
             }
-          },
+            await updateInDatabase('activities', activity.id, activityData);
+            navigation.goBack();
+          }},
         ]);
       } else {
         await writeToDatabase('activities', activityData);

@@ -18,6 +18,7 @@ function MainNavigator() {
         },
         tabBarActiveTintColor: theme.tabIconSelected,
         tabBarInactiveTintColor: theme.tabIconDefault,
+        headerBackTitleVisible: false,
       }}
     >
       <Stack.Screen
@@ -34,9 +35,6 @@ function MainNavigator() {
       <Stack.Screen
         name="DietForm"
         component={DietFormScreen}
-        options={{
-          title: 'Add A Diet Entry',
-        }}
       />
     </Stack.Navigator>
   );

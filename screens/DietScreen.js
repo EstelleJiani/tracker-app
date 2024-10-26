@@ -6,11 +6,12 @@ import { globalStyles } from '../styles/globalStyles';
 import ItemsList from '../components/ItemsList';
 
 // The DietScreen
-function DietScreen() {
+function DietScreen({ navigation }) {
   const [diets, setDiets] = useState([]);
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
+  // Listen to the diets collection
   useEffect(() => {
     const unsubscribe = listenToCollection('diets', (docs) => {
       setDiets(docs);
@@ -19,9 +20,18 @@ function DietScreen() {
     return () => unsubscribe();
   }, []);
 
+    // Handle the item press
+  const handleItemPress = (diet) => {
+    console.log('diet', diet);
+    navigation.navigate('DietForm', { diet });
+  };
+
   return (
     <View style={styles.container}>
-      <ItemsList data={diets} />
+      <ItemsList
+        data={diets}
+        onItemPress={handleItemPress}
+      />
     </View>
   );
 }
