@@ -146,8 +146,8 @@ export const globalStyles = (theme) => StyleSheet.create({
     fontWeight: '500',
   },
 
-  // AddButton styles
-  addButtonContainer: {
+  // IconButton styles
+  iconButtonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

@@ -4,7 +4,7 @@ import { useTheme } from './ThemeContext';
 import ActivitiesScreen from '../screens/ActivitiesScreen';
 import DietScreen from '../screens/DietScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import AddButton from './AddButton';
+import IconButton from './IconButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,8 +28,8 @@ function TabBarNavigator() {
         options={({ navigation }) => ({
           title: 'Activities',
           headerRight: () => (
-            <AddButton
-              iconName="directions-run"
+            <IconButton
+              type='addActivity'
               onPress={() => navigation.navigate('ActivityForm')}
             />
           ),
@@ -44,8 +44,8 @@ function TabBarNavigator() {
         options={({ navigation }) => ({
           title: 'Diet',
           headerRight: () => (
-            <AddButton
-              iconName="fastfood"
+            <IconButton
+              type='addDiet'
               onPress={() => navigation.navigate('DietForm')}
             />
           ),
