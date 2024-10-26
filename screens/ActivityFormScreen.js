@@ -4,9 +4,11 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import Checkbox from 'expo-checkbox';
 import {
   deleteFromDatabase,
   updateInDatabase,
@@ -87,11 +89,18 @@ function ActivityFormScreen({ navigation, route }) {
     // Add or update the activity in Firestore
     try {
       if (isEditMode) {
-        await updateInDatabase('activities', activity.id, activityData);
+        Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          { text: 'No' },
+          { text: 'Yes', onPress: async () => {
+              await updateInDatabase('activities', activity.id, activityData);
+              navigation.goBack();
+            }
+          },
+        ]);
       } else {
         await writeToDatabase('activities', activityData);
+        navigation.goBack();
       }
-      navigation.goBack();
     } catch (error) {
       console.error('Error adding activity: ', error);
     }
