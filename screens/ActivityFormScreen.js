@@ -45,6 +45,9 @@ function ActivityFormScreen({ navigation, route }) {
   const [duration, setDuration] = useState(activity?.value?.split(' ')[0] || '');
   const [date, setDate] = useState(activity?.date || null);
 
+  // State variable for the ignore special checkbox
+  const [ignoreSpecial, setIgnoreSpecial] = useState(false);
+
   useEffect(() => {
     navigation.setOptions({
       title: isEditMode ? 'Edit' : 'Add An Activity',
@@ -80,10 +83,12 @@ function ActivityFormScreen({ navigation, route }) {
       description,                          // Activity
       value: duration.toString() + " min",  // Duration
       date,
-      showIcon: parseInt(duration) > 60 && (
-        description === 'Running' ||
-        description === 'Weights'
-      ) ? true : false,
+      showIcon: isEditMode ? !ignoreSpecial : (
+        parseInt(duration) > 60 && (
+          description === 'Running' ||
+          description === 'Weights'
+        )
+       ),
     };
 
     // Add or update the activity in Firestore
@@ -155,6 +160,19 @@ function ActivityFormScreen({ navigation, route }) {
               onChange={setDate}
             />
           </View>
+
+          {(isEditMode && activity?.showIcon) && (
+            <View>
+              <Text>
+                This item is marked as special. Select the checkbox if you would like to approve it.
+              </Text>
+              <Checkbox
+                value={ignoreSpecial}
+                onValueChange={setIgnoreSpecial}
+              />
+            </View>
+          )}
+
           <View style={styles.buttonsContainer}>
             <FormActionButtons onSave={handleSave} />
           </View>
