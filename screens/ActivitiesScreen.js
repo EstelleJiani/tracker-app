@@ -6,11 +6,12 @@ import { globalStyles } from '../styles/globalStyles';
 import ItemsList from '../components/ItemsList';
 
 // The ActivitiesScreen
-function ActivitiesScreen() {
+function ActivitiesScreen({ navigation }) {
   const [activities, setActivities] = useState([]);
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
+  // Listen to the activities collection
   useEffect(() => {
     const unsubscribe = listenToCollection('activities', (docs) => {
       setActivities(docs);
@@ -19,9 +20,18 @@ function ActivitiesScreen() {
     return () => unsubscribe();
   }, []);
 
+  // Handle the item press
+  const handleItemPress = (activity) => {
+    console.log('activity', activity);
+    navigation.navigate('ActivityForm', { activity });
+  };
+
   return (
     <View style={styles.container}>
-      <ItemsList data={activities} />
+      <ItemsList
+        data={activities}
+        onItemPress={handleItemPress}
+      />
     </View>
   );
 }

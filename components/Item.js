@@ -9,19 +9,21 @@ function Item ({
   description,
   date,
   value,
-  showIcon
+  showIcon,
+  onPress
 }) {
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
   return (
     <PressableButton
+      onPress={onPress}
       style={styles.item}
     >
       <Text style={styles.itemTitle}>{description}</Text>
       <View style={styles.itemDetailsContainer}>
         {showIcon && (
-          <Ionicons name="warning" size={24} color="#FFD700" />
+          <Ionicons name="warning" size={24} color={theme.warningIconColor} />
         )}
         <View style={styles.itemTextContainer}>
           <Text style={styles.itemText}>{date.toDateString()}</Text>

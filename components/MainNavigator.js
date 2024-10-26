@@ -30,9 +30,6 @@ function MainNavigator() {
       <Stack.Screen
         name="ActivityForm"
         component={ActivityFormScreen}
-        options={{
-          title: 'Add An Activity',
-        }}
       />
       <Stack.Screen
         name="DietForm"

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Alert,
   Keyboard,
@@ -7,9 +7,14 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { writeToDatabase } from '../firebase/firebaseHelper';
+import {
+  deleteFromDatabase,
+  updateInDatabase,
+  writeToDatabase,
+} from '../firebase/firebaseHelper';
 import { useTheme } from '../components/ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
+import IconButton from '../components/IconButton';
 import Field from '../components/Field';
 import FormActionButtons from '../components/FormActionButtons';
 
@@ -25,14 +30,32 @@ const activityOptions = [
 ];
 
 // The ActivityFormScreen
-function ActivityFormScreen({ navigation }) {
+function ActivityFormScreen({ navigation, route }) {
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
-  const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState('');
-  const [date, setDate] = useState(null);
+  // Get the activity from the route params
+  const activity = route.params?.activity;
+  const isEditMode = !!activity;
 
+  // Initialize the state variables
+  const [description, setDescription] = useState(activity?.description || '');
+  const [duration, setDuration] = useState(activity?.value?.split(' ')[0] || '');
+  const [date, setDate] = useState(activity?.date || null);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: isEditMode ? 'Edit' : 'Add An Activity',
+      headerRight: isEditMode ? () => (
+        <IconButton
+          type='delete'
+          onPress={handleDelete}
+        />
+      ) : undefined,
+    });
+  }, [navigation, isEditMode]);
+
+  // Validate the form
   const validateForm = () => {
     if (!description || !duration || !date) {
       return false;
@@ -44,14 +67,14 @@ function ActivityFormScreen({ navigation }) {
     return true;
   }
 
+  // Handle the save button press
   const handleSave = async () => {
     if (!validateForm()) {
       Alert.alert('Invalid input','Please check your input values');
       return;
     }
 
-    const newActivity = {
-      id: Date.now().toString(),
+    const activityData = {
       description,                          // Activity
       value: duration.toString() + " min",  // Duration
       date,
@@ -63,10 +86,24 @@ function ActivityFormScreen({ navigation }) {
 
     // Add Activity to Firestore
     try {
-      await writeToDatabase('activities', newActivity);
+      if (isEditMode) {
+        await updateInDatabase('activities', activity.id, activityData);
+      } else {
+        await writeToDatabase('activities', activityData);
+      }
       navigation.goBack();
     } catch (error) {
       console.error('Error adding activity: ', error);
+    }
+  };
+
+  // Handle the delete button press
+  const handleDelete = async () => {
+    try {
+      await deleteFromDatabase('activities', activity.id);
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error deleting activity: ', error);
     }
   };
 
