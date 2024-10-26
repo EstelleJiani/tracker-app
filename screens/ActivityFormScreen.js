@@ -84,7 +84,7 @@ function ActivityFormScreen({ navigation, route }) {
       ) ? true : false,
     };
 
-    // Add Activity to Firestore
+    // Add or update the activity in Firestore
     try {
       if (isEditMode) {
         await updateInDatabase('activities', activity.id, activityData);
@@ -99,6 +99,14 @@ function ActivityFormScreen({ navigation, route }) {
 
   // Handle the delete button press
   const handleDelete = async () => {
+    Alert.alert('Delete', 'Are you sure you want to delete this item?', [
+      { text: 'No' },
+      { text: 'Yes', onPress: () => handleDeleteConfirmed() },
+    ]);
+  };
+
+  // Handle the delete confirmed button press
+  const handleDeleteConfirmed = async () => {
     try {
       await deleteFromDatabase('activities', activity.id);
       navigation.goBack();
