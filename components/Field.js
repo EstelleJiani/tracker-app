@@ -73,7 +73,7 @@ function Field({
         return (
           <>
             <TextInput
-              value={value && value.toDateString()}
+              value={value && value.toDate().toDateString()}
               onPressIn={toggleDatePicker}
               style={styles.input}
             />

@@ -26,7 +26,7 @@ function Item ({
           <Ionicons name="warning" size={24} color={theme.warningIconColor} />
         )}
         <View style={styles.itemTextContainer}>
-          <Text style={styles.itemText}>{date.toDateString()}</Text>
+          <Text style={styles.itemText}>{date.toDate().toDateString()}</Text>
         </View>
         <View style={styles.itemTextContainer}>
           <Text style={styles.itemText}>{value}</Text>

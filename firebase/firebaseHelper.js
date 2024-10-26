@@ -11,7 +11,6 @@ export function listenToCollection(collectionName, callback) {
         const docs = snapshot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-          date: doc.data().date.toDate()
         }));
         callback(docs);
       }
