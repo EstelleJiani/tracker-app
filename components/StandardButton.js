@@ -7,8 +7,9 @@ import PressableButton from "./PressableButton";
 function StandardButton({
   onPress,
   title,
-  variant = 'primary',
+  variant = 'Primary',
   disabled = false,
+  style
 }) {
   const { theme } = useTheme();
   const styles = globalStyles(theme);
@@ -21,6 +22,7 @@ function StandardButton({
         styles.standardButton,
         styles[`standardButton${variant}`],
         disabled && styles.standardButtonDisabled,
+        style,
       ]}
     >
       <Text style={styles.standardButtonText}>

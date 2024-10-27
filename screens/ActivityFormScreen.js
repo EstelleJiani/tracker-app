@@ -162,9 +162,11 @@ function ActivityFormScreen({ navigation, route }) {
             />
           </View>
 
+          <View style={{ flex: 1 }} />
+
           {(isEditMode && activity?.showIcon) && (
-            <View>
-              <Text>
+            <View style={styles.ignoreSpecialCheckboxContainer}>
+              <Text style={styles.ignoreSpecialCheckboxText}>
                 This item is marked as special. Select the checkbox if you would like to approve it.
               </Text>
               <Checkbox

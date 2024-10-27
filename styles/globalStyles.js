@@ -71,7 +71,7 @@ export const globalStyles = (theme) => StyleSheet.create({
     flex: 1,
     padding: 24,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
   },
   divider: {
@@ -131,12 +131,13 @@ export const globalStyles = (theme) => StyleSheet.create({
     height: 48,
     borderRadius: 8,
     marginVertical: 8,
+    marginHorizontal: 10,
   },
   standardButtonPrimary: {
-    // backgroundColor: theme.buttonPrimaryBackground,
+    backgroundColor: theme.buttonPrimaryBackground,
   },
   standardButtonSecondary: {
-    // backgroundColor: theme.buttonSecondaryBackground,
+    backgroundColor: theme.buttonSecondaryBackground,
   },
   standardButtonDisabled: {
     opacity: 0.5,
@@ -152,5 +153,19 @@ export const globalStyles = (theme) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+  },
+
+  // Ignore special checkbox styles
+  ignoreSpecialCheckboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  ignoreSpecialCheckboxText: {
+    flex: 1,
+    marginRight: 10,
   },
 });

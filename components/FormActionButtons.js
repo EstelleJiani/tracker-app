@@ -26,10 +26,13 @@ function FormActionButtons({ onSave }) {
       <StandardButton
         title='Cancel'
         onPress={handleCancel}
+        variant='Secondary'
+        style={{ flex: 1 }}
       />
       <StandardButton
         title='Save'
         onPress={onSave}
+        style={{ flex: 1 }}
       />
     </View>
   );

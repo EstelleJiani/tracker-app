@@ -148,7 +148,7 @@ function DietFormScreen({ navigation, route }) {
           </View>
 
           {(isEditMode && diet?.showIcon) && (
-            <View>
+            <View style={styles.ignoreSpecialCheckboxContainer}>
               <Text>
                 This item is marked as special. Select the checkbox if you would like to approve it.
               </Text>
