@@ -32,7 +32,7 @@ function DietFormScreen({ navigation, route }) {
   // Initialize the state variables
   const [description, setDescription] = useState(diet?.description || '');
   const [calories, setCalories] = useState(diet?.value?.toString() || '');
-  const [date, setDate] = useState(diet?.date || null);
+  const [date, setDate] = useState(diet?.date.toDate() || null);
 
   // State variable for the ignore special checkbox
   const [ignoreSpecial, setIgnoreSpecial] = useState(false);

@@ -43,7 +43,7 @@ function ActivityFormScreen({ navigation, route }) {
   // Initialize the state variables
   const [description, setDescription] = useState(activity?.description || '');
   const [duration, setDuration] = useState(activity?.value?.split(' ')[0] || '');
-  const [date, setDate] = useState(activity?.date || null);
+  const [date, setDate] = useState(activity?.date.toDate() || null);
 
   // State variable for the ignore special checkbox
   const [ignoreSpecial, setIgnoreSpecial] = useState(false);
