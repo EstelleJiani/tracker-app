@@ -1,7 +1,8 @@
-import { Alert, Button, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from './ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
+import StandardButton from './StandardButton';
 
 function FormActionButtons({ onSave }) {
   const { theme } = useTheme();
@@ -22,13 +23,16 @@ function FormActionButtons({ onSave }) {
 
   return (
     <View style={styles.formActionButtonsContainer}>
-      <Button
+      <StandardButton
         title='Cancel'
         onPress={handleCancel}
+        variant='Secondary'
+        style={{ flex: 1 }}
       />
-      <Button
+      <StandardButton
         title='Save'
         onPress={onSave}
+        style={{ flex: 1 }}
       />
     </View>
   );

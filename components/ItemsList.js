@@ -3,7 +3,7 @@ import Item from './Item';
 import { useTheme } from './ThemeContext';
 import { globalStyles } from '../styles/globalStyles';
 
-function ItemsList({ data }) {
+function ItemsList({ data, onItemPress }) {
   const { theme } = useTheme();
   const styles = globalStyles(theme);
 
@@ -16,7 +16,9 @@ function ItemsList({ data }) {
           description={item.description}
           date={item.date}
           value={item.value}
-          showIcon={item.showIcon}/>
+          showIcon={item.showIcon}
+          onPress={() => onItemPress(item)}
+        />
       )}
       style={styles.list}
     />
